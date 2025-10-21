@@ -2,21 +2,23 @@ const express = require('express');
 
 const app = express();
 
-app.use('/test',(req, res) => {
-    res.send('testing page');
+app.get('/user',(req, res) => {
+    res.send('testing page get');
 });
 
 
-app.use("/api",(req, res)=>{
-    res.send('404 page not found');
+app.post("/user",(req, res) => {
+     res.send('testing page post');
+});
+
+
+app.delete("/user",(req, res) => {
+    res.send('testing page delete');
+});
+
+app.patch("/user",(req, res) => {
+    res.send('testing page patch');
 })
-app.use("/",(req, res) => {
-    res.send('Hello World');
-});
-
-
-
-
-app.listen(3001, ()=>{
-    console.log("successfully started server on port 3001");
+app.listen(7777, ()=>{
+    console.log("successfully started server on port 7777");
 })
