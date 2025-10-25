@@ -23,7 +23,7 @@ const app = express();
 
 app.use('/test', (req, res, next)=>{
     console.log("middleware called");   
-    res.send('testing middleware');
+    // res.send('testing middleware');
     next();
 }, (req, res, next)=>{
     console.log("second middleware called");
