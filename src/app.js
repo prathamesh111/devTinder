@@ -4,24 +4,42 @@ const { connectDb } = require('./config/database');
 const app = express();
 
 const User = require('./models/user');
+app.use(express.json());
 
 app.post("/signup", async (req, res) => {
-
     try {
-        const user = new User({
-            firstName: "priyanka",
-            lastName: "Samudra",
-            emailId: "priyanka512@gmail.com",
-            password: "priyanka@123",
-        });
-
+        const user = new User(req.body);
         await user.save();
         res.send("user signed up successfully");
     } catch (err) {
         res.status(500).send("Error saving user");
     }
+})
+
+app.get("/user", async (req, res) => {
+    const userEmail = req.body.emailId;
+    try{
+      const users = await User.find({emailId: userEmail});
+      if(users.length === 0){
+        res.status(404).send("No users found");
+      } else{
+        res.send(users);
+      }
+    }catch(err){
+        res.status(400).send("Error fetching user");
+    }
+});
+
+app.get("/feed", async (req, res) => {
+    try {
+        const users = await User.find({});
+        res.send(users);
+    } catch (err) {
+        res.status(400).send("Error fetching users");
+    }
 
 })
+
 
 
 connectDb().then(() => {
