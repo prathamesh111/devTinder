@@ -4,6 +4,8 @@ const { connectDb } = require('./config/database');
 const app = express();
 
 const User = require('./models/user');
+
+//expressjs middleware to parse json body
 app.use(express.json());
 
 app.post("/signup", async (req, res) => {
